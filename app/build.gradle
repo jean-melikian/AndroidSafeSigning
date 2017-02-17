@@ -11,10 +11,28 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
-    buildTypes {
+
+    // TODO : signingConfigs { ... }
+    signingConfigs {
+        debug {
+            storeFile file("../debug.keystore")
+            storePassword "android"
+            keyAlias "androiddebugkey"
+            keyPassword "android"
+        }
         release {
+        }
+    }
+
+    buildTypes {
+        debug {
             minifyEnabled false
+        }
+        release {
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            // TODO: signingConfig signingConfigs.release
+            signingConfig signingConfigs.release
         }
     }
 }
@@ -29,3 +47,9 @@ dependencies {
     compile 'com.android.support:design:25.1.1'
     testCompile 'junit:junit:4.12'
 }
+
+//----------------------------------------------------------------------------------------------------------------------
+// Signing configuration
+//--
+// TODO: apply from: "$rootDir/gradle/signing.gradle";
+apply from: "$rootDir/gradle/signing.gradle";
